@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>MATTER — 元素与分子实验室</title>
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<header>
+<div class="wrap headin">
+<a class="brand" href="#home">
+<div class="brandmark">
+<i>
+</i>
+</div>
+<div class="brandtext">matter<span>.</span>
+</div>
+</a>
+<nav class="topnav">
+<button type="button" class="active" data-jump="atlas">元素图谱</button>
+<button type="button" data-jump="studio">分子实验台</button>
+</nav>
+<div class="headright">
+<i>
+</i> ELEMENT LAB / OFFLINE</div>
+</div>
+</header>
+<main id="home" class="wrap">
+<section class="intro">
+<div>
+<div class="overline">AN INTERACTIVE CHEMISTRY SPACE</div>
+<h1>从元素出发，<br>
+<span>看见反应。</span>
+</h1>
+<p>探索 118 种元素。先组合分子并加入反应物列表，再由你亲手点击合成反应。<br>系统只对已收录的真实反应进行配平与演示。</p>
+</div>
+<div class="intro-side">
+<div class="metric">
+<strong>118</strong>
+<span>种真实元素</span>
+</div>
+<div class="metric">
+<strong id="reactionCountMetric">18</strong>
+<span>条反应路径</span>
+</div>
+<div class="metric">
+<strong>∞</strong>
+<span>组合探索</span>
+</div>
+</div>
+</section>
+<section id="atlas">
+<div class="sectionline">
+<div>
+<h2>
+<span>01 /</span>元素图谱</h2>
+<p>单击任意元素查看原子结构；是否加入构建器由你亲自点击确认，页面不会自动跳转。</p>
+</div>
+<div class="sectionaside">PERIODIC TABLE · 118 ELEMENTS</div>
+</div>
+<div class="explorer">
+<div class="card periodic">
+<div class="cardhead">
+<strong>周期表</strong>
+<div class="searchwrap">
+<input type="search" id="elementSearch" placeholder="搜索元素名称 / 符号 / 序号" aria-label="搜索元素">
+</div>
+</div>
+<div class="periodic-scroll">
+<div class="ptable" id="ptable">
+</div>
+</div>
+<div class="legend" id="legend">
+</div>
+</div>
+<div class="card atomview">
+<div class="atom-id">
+<span class="atom-symbol" id="atomSymbol">C</span>
+<div class="atom-name">
+<span id="atomName">碳</span>
+<small id="atomEnglish">CARBON / 006</small>
+</div>
+</div>
+<div class="atom-canvaswrap">
+<canvas id="atomCanvas" aria-label="可旋转的原子教学示意">
+</canvas>
+<canvas id="selectFxCanvas" aria-hidden="true">
+</canvas>
+</div>
+<div class="atom-stats">
+<div>
+<b id="atomP">6</b>
+<small>质子</small>
+</div>
+<div>
+<b id="atomN">6</b>
+<small>中子*</small>
+</div>
+<div>
+<b id="atomE">6</b>
+<small>电子</small>
+</div>
+</div>
+<div class="atom-info">
+<div>电子层：<b id="atomShells">2 · 4</b>
+</div>
+<div>电子排布：<b id="atomConfig">1s² 2s² 2p²</b>
+</div>
+<div>相对原子质量：<b id="atomMass">12.011</b>
+</div>
+</div>
+<div class="atom-footer">
+<div class="atom-actionbar">
+<button class="accentbtn" id="addSelectedElement">＋ 加入分子构建器</button>
+<div class="addqty" id="addQty" role="group" aria-label="加入数量">
+<button type="button" data-qty="-1" aria-label="减少加入数量">−</button>
+<b id="addQtyValue">1</b>
+<button type="button" data-qty="1" aria-label="增加加入数量">+</button>
+</div>
+</div>
+<div class="atom-cart">
+<span class="cartlabel">构建器中</span>
+<div class="cartlist" id="atomCartList">
+<em>尚未加入任何原子</em>
+</div>
+<button type="button" class="cartjump" id="goStudio">前往构建器 →</button>
+</div>
+<p class="minimalnote">* 中子数为代表同位素近似；电子轨道是教学模型，并非真实量子轨迹。</p>
+</div>
+</div>
+</div>
+</section>
+<section class="studiowrap" id="studio">
+<div class="studiointro">
+<div>
+<div class="tiny green">02 / MOLECULAR WORKSPACE</div>
+<h2>分子构建工作台</h2>
+<p>先拼出你需要的反应物，确认之后点击“合成反应”。系统会尝试补齐必要试剂、自动配平，并播放对应的反应演示。</p>
+</div>
+<div class="steps">
+<span>01 组合元素</span>
+<span>02 加入反应物</span>
+<span>03 点击合成</span>
+<span>04 播放反应</span>
+</div>
+</div>
+<div class="studio">
+<div class="studioleft">
+<div class="card pad">
+<div class="subhead">
+<h3>构建一个分子</h3>
+<b>01 / COMPOSE</b>
+</div>
+<div class="draft-list" id="draftList">
+</div>
+<div class="draft-hint">在周期表中单击元素查看结构，再点「＋ 加入分子构建器」才会真正添加原子（可先设定数量）。用 ＋/− 调整，完成后加入反应物，最后点击“合成反应”。</div>
+<div class="draft-identity">
+<b id="draftFormula">CH₄</b>
+<small id="draftStatus" class="good">已识别 · 甲烷</small>
+</div>
+<div class="rowbuttons">
+<button class="softbtn" id="draftClear" type="button">清空</button>
+<button class="accentbtn" id="addReactant" type="button">加入反应物 →</button>
+</div>
+<hr class="subdivider">
+<div class="subhead">
+<h3>快速选择分子</h3>
+<b>PRESETS</b>
+</div>
+<div class="presetgrid" id="presets">
+</div>
+<div class="recipehint">示例分子只用于快速选择，反应由你加入的反应物决定。</div>
+</div>
+<div class="card pad">
+<div class="subhead">
+<h3>你的反应物</h3>
+<b>02 / REACTANTS</b>
+</div>
+<div class="reaction-list" id="reactants">
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:11px">
+<span class="muted" style="font-size:10px" id="reactantCount">尚未加入反应物</span>
+<button id="clearReactants" class="softbtn" style="padding:5px 9px;font-size:10px">全部移除</button>
+</div>
+<hr class="subdivider">
+<div class="subhead">
+<h3>智能试剂补全</h3>
+<b>AUTO</b>
+</div>
+<div class="switchline">
+<span>自动补充氧化剂（如 O₂）</span>
+<button class="toggle" data-flag="oxidant" role="switch" aria-checked="true" aria-label="自动补充氧化剂">
+<i>
+</i>
+</button>
+</div>
+<div class="switchline">
+<span>自动补充其他必要反应物</span>
+<button class="toggle" data-flag="partner" role="switch" aria-checked="true" aria-label="自动补充其他必要反应物">
+<i>
+</i>
+</button>
+</div>
+<div class="switchline">
+<span>显示适用催化剂 / 反应条件</span>
+<button class="toggle" data-flag="catalyst" role="switch" aria-checked="true" aria-label="自动选择适用催化剂">
+<i>
+</i>
+</button>
+</div>
+<div class="auto-detail" id="autoDetail">系统会先根据你的反应物组合寻找可验证反应。</div>
+<div class="labmini" id="candidateList">
+</div>
+<button id="synthesizeReaction" class="synthbtn" type="button">合成反应</button>
+<div class="synthnote" id="synthHint">添加完需要的反应物后，再点击这里生成方程式与动画。</div>
+</div>
+</div>
+<div class="card reactionright">
+<div class="react-head">
+<div>
+<div class="tiny green">03 / REACTION STUDIO</div>
+<h3 id="reactionTitle">等待合成反应</h3>
+</div>
+<div id="reactionStatus" class="status">待合成</div>
+</div>
+<div class="equation-zone">
+<div class="caption">BALANCED REACTION / 点击后生成配平方程式</div>
+<div class="equation" id="reactionEquation">—</div>
+<div class="eqsub" id="reactionExplanation">请先添加反应物，然后点击“合成反应”。</div>
+<div class="eqtags" id="equationTags">
+</div>
+<div class="reactionready" id="reactionReadyBox">
+<strong>当前模式</strong>用户主动触发合成。系统不会在你添加元素时自动开始反应。</div>
+</div>
+<div class="videowrap">
+<div class="videosurface">
+<canvas id="reactionCanvas" aria-label="所选分子组合的反应演示动画">
+</canvas>
+<div id="synthFlash" class="player-synthflash">
+</div>
+<div class="vid-overlay">
+<i>
+</i>
+<span>MOLECULAR MOTION / TEACHING MODEL</span>
+</div>
+<div class="vidchapter" id="vidChapter">
+<b id="vidChapterTitle">合成启动</b>
+<span id="vidChapterNum">01 / 05</span>
+</div>
+<div class="vidmeta">
+<div class="vidrec" id="videoRec">
+<i>
+</i>REC</div>
+<div class="vidhud" id="videoHud">DEMO · 00:00:00</div>
+</div>
+<div class="vid-corner" id="sceneCounter">ATOM TRACE · 01</div>
+<div id="videoEmpty" class="vid-empty" hidden>
+<svg viewBox="0 0 48 48">
+<circle cx="24" cy="24" r="5"/>
+<ellipse cx="24" cy="24" rx="19" ry="7" transform="rotate(45 24 24)"/>
+<ellipse cx="24" cy="24" rx="19" ry="7" transform="rotate(-45 24 24)"/>
+</svg>
+<strong id="emptyTitle">等待你点击合成反应</strong>
+<p id="emptyMessage">先完成反应物选择，然后由你手动触发合成。</p>
+</div>
+<div class="vidsub" id="videoSubtitle">
+<span id="videoSubtitleText">—</span>
+</div>
+<div class="vid-end" id="videoEnd" hidden>
+<strong>演示播放完毕</strong>
+<small id="videoEndNote">可以重播，或点击下方分镜回看任一阶段。</small>
+<button type="button" id="videoEndReplay">↺ 重播演示</button>
+</div>
+</div>
+<div class="player-bottom">
+<input id="videoSeek" class="timeline" aria-label="反应动画进度" type="range" min="0" max="1000" value="0">
+<div class="playerrow">
+<div class="controls">
+<button id="videoPlay" class="ctrl" aria-label="暂停或播放">Ⅱ</button>
+<button id="videoRestart" class="ctrl" aria-label="重播">↺</button>
+<button id="videoSpeed" class="ctrl" style="width:47px;font:10px var(--mono)" aria-label="播放速度">1×</button>
+<button id="videoSubToggle" class="ctrl wide on" aria-pressed="true" aria-label="切换旁白字幕">字幕</button>
+<button id="videoFullscreen" class="ctrl wide" aria-label="全屏播放演示">⛶ 全屏</button>
+</div>
+<span class="elapsed" id="videoTime">00:00 / 00:10</span>
+</div>
+<div class="chapters" id="videoChapters">
+</div>
+<div class="stageinfo">
+<div>
+<b id="stageTitle">分子接近</b>
+<small id="stageText">反应物进入动画区域。</small>
+</div>
+<div class="stepnum" id="stageNumber">01 / 04</div>
+</div>
+<div class="reagent-row">
+<strong>匹配的试剂 / 条件</strong>
+<div id="reagentSummary">
+</div>
+</div>
+</div>
+</div>
+<div class="notice">
+<strong>科学说明</strong> · 动画展示配平方程式对应的原子重新分组，分子碰撞和断键顺序为概念示意，不是经过量子化学计算的反应机理。只匹配已录入的真实反应，不预测任意组合的产物。固体与离子结构也仅作组成示意。</div>
+</div>
+</div>
+</section>
+<section class="reagent-section">
+<div class="sectionline">
+<div>
+<h2>
+<span>03 /</span>试剂知识库</h2>
+<p>以下为真实化学试剂的参考信息。它们不会未经匹配就被添加到反应中。</p>
+</div>
+<div class="sectionaside">CATALYSTS / OXIDANTS</div>
+</div>
+<div class="reagent-cards" id="reagentCards">
+</div>
+</section>
+<footer class="footer">
+<div>
+<b>matter.</b> &nbsp; INTERACTIVE CHEMISTRY LAB · FRONT-END PROTOTYPE<br>© 教学可视化实验台 · 118 种元素 · 无需联网</div>
+<div>资料为教育用途：真实反应条件依赖温度、压力、浓度及动力学等。<br>本网站不提供实验操作步骤或安全保证，不具备未知反应产物预测能力。</div>
+</footer>
+</main>
+<div class="toast" id="toast" role="status">
+</div>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body></html>
